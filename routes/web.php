@@ -17,14 +17,13 @@ use App\Http\Controllers\ProyectoController;
 /*     return view('welcome'); */
 /* }); */
 
-Route::get('/home', [ProyectoController::class, 'todos'])->name('homepage');
-Route::post('/send', [ProyectoController::class, 'nuevo'])->name('nuevoProyecto');
-
-Route::get('/change/{id}', [ProyectoController::class, 'edita_este'])->name('editarProyecto');
-Route::put('/update/{id}', [ProyectoController::class, 'editar'])->name('editar');
-
-Route::get('/deleting/{id}', [ProyectoController::class, 'elimina_este'])->name('eliminarProyecto');
-Route::delete('/delete/{id}', [ProyectoController::class, 'eliminar'])->name('eliminar');
+Route::get('/proyectos', [ProyectoController::class, 'index'])->name('proyectos.index');
+Route::get('/proyectos/create', [ProyectoController::class, 'create'])->name('proyectos.create');
+Route::post('/proyectos', [ProyectoController::class, 'store'])->name('proyectos.store');
+Route::get('/proyectos/{proyecto}', [ProyectoController::class, 'show'])->name('proyectos.show');
+Route::get('/proyectos/{proyecto}/edit', [ProyectoController::class, 'edit'])->name('proyectos.edit');
+Route::put('/proyectos/{proyecto}', [ProyectoController::class, 'update'])->name('proyectos.update');
+Route::delete('/proyectos/{proyecto}', [ProyectoController::class, 'destroy'])->name('proyectos.destroy');
 
 Route::get('/generatePDF', [ProyectoController::class, 'informe_todos'])->name('informeCompleto');
 Route::get('/PDFindividual/{id}', [ProyectoController::class, 'informe'])->name('informeSingular');

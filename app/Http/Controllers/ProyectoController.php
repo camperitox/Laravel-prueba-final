@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Proyecto;
 use PDF;
+use Carbon\Carbon;
 
 
 class ProyectoController extends Controller
@@ -60,16 +61,18 @@ class ProyectoController extends Controller
     public function informe_todos(){
         $hoy = getdate();
         $estampa = "$hoy[month]_$hoy[mday]_$hoy[year]";
+        $fecha_modificado = Carbon::now()->format('d-m-Y');
         $todos   = Proyecto::all();
-        $informe = PDF::loadView('informe', ['lista_de_proyectos' => $todos, 'fecha' => $estampa]);
+        $informe = PDF::loadView('informe', ['lista_de_proyectos' => $todos, 'fecha' => $fecha_modificado]);
         return $informe->stream("informe_$estampa.pdf");
     }
 
     public function informe($identifier){
         $hoy = getdate();
         $estampa = "$hoy[month]_$hoy[mday]_$hoy[year]";
+        $fecha_modificado = Carbon::now()->format('d-m-Y');
         $seleccion = [Proyecto::find($identifier)];
-        $informe = PDF::loadView('informe', ['lista_de_proyectos' => $seleccion, 'fecha' => $estampa]);
+        $informe = PDF::loadView('informe', ['lista_de_proyectos' => $seleccion, 'fecha' => $fecha_modificado]);
         return $informe->stream("informe_individual_$estampa.pdf");
 
     }
